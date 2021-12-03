@@ -1,0 +1,38 @@
+import re
+
+
+text = input()
+
+pattern_1 = r'[0-9]+'
+match_1 = re.findall(pattern_1, text)
+
+cool_threshold = 1
+for nums in match_1:
+    for num in nums:
+        cool_threshold *= int(num)
+
+pattern_2 = r'([:]{2}([A-Z][a-z]{2,})[:]{2})'
+match_2 = re.findall(pattern_2, text)
+pattern_3 = r'([*]{2}([A-Z][a-z]{2,})[*]{2})'
+match_3 = re.findall(pattern_3, text)
+
+if len(match_3) > 1 and len(match_2) >1:
+    all_match =[None]*(len(match_2)+len(match_3))
+    all_match[::2] = match_2
+    all_match[1::2] = match_3
+else:
+    if len(match_3) < 1:
+        all_match = match_2
+    elif len(match_2) < 1:
+        all_match = match_3
+    else:
+        all_match = match_2 + match_3
+print(f"Cool threshold: {cool_threshold}")
+print(f"{len(all_match)} emojis found in the text. The cool ones are:")
+for emoji in all_match:
+    sum_all = 0
+    for char in emoji[1]:
+        sum_all += ord(char)
+        if sum_all >= cool_threshold:
+            print(f"{emoji[0]}")
+            break
