@@ -1,0 +1,42 @@
+number_of_pieces = int(input())
+dictionary_with_pieces = {}
+for item in range(number_of_pieces):
+    initial_pieces = input().split("|")
+    piece, composer, key_note = initial_pieces[0], initial_pieces[1], initial_pieces[2]
+    if piece not in dictionary_with_pieces:
+        dictionary_with_pieces[piece] = [composer, key_note]
+action = input()
+while True:
+    pieces = action.split("|")
+    command = pieces[0]
+
+    if command == "Add":
+        piece, composer, key_note = pieces[1], pieces[2], pieces[3]
+        if piece not in dictionary_with_pieces:
+            dictionary_with_pieces[piece] = [composer, key_note]
+            print(f"{piece} by {composer} in {key_note} added to the collection!")
+        else:
+            print(f"{piece} is already in the collection!")
+
+    elif command == "Remove":
+        piece = pieces[1]
+        if piece not in dictionary_with_pieces:
+            print(f"Invalid operation! {piece} does not exist in the collection.")
+        else:
+            dictionary_with_pieces.pop(piece)
+            print(f"Successfully removed {piece}!")
+
+    elif command == "ChangeKey":
+        piece, new_key_note = pieces[1], pieces[2]
+        if piece not in dictionary_with_pieces:
+            print(f"Invalid operation! {piece} does not exist in the collection.")
+        else:
+            dictionary_with_pieces[piece] = [composer, new_key_note]
+            print(f"Changed the key of {piece} to {new_key_note}!")
+    elif command == "Stop":
+        break
+    action = input()
+sorted_pieces = sorted(dictionary_with_pieces.items(), key=lambda x: x[::1])
+for key, value in sorted_pieces:
+    print(f"{key} -> Composer: {value[0]}, Key: {value[1]}")
+
