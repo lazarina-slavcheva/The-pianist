@@ -1,0 +1,42 @@
+elements = input().split()
+command = input().split()
+boundary = str(len(elements))
+def add():
+    moves = 0
+    elements.insert((len(elements)//2), (f"-{moves}a" ))
+    elements.insert((len(elements) // 2), (f"-{moves}a"))
+    moves += 1
+    print("Invalid input! Adding additional elements to the board")
+
+
+def turn():
+    counter = 0
+    temporary = ""
+    current = ""
+    for index in range(len(elements)):
+        if int(command[0]) == index:
+            if int(command[1]) == index:
+                temporary = elements[index]
+                current = elements[index]
+
+
+        if int(command[1]) == index:
+            current = elements[index]
+
+        if temporary == current:
+                print(f"Congrats! You have found matching elements - {temporary}!")
+                counter += 1
+                elements.remove(temporary)
+                elements.remove(current)
+                if counter == (len(elements) // 2):
+                    print(f"You have won in {counter} turns!")
+                break
+        if int(command[0]) != index or int(command[0]) != index:
+            print("Try again!")
+            break
+while command[0] != "end":
+    if command[0] == command[1] or command[0] > boundary or command[1] > boundary or command[0] < str(0) or command[1] < str(0):
+        add()
+    turn()
+    command = input().split()
+
