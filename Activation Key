@@ -1,0 +1,30 @@
+activation_key = input()
+command = input()
+while command != "Generate":
+    instructions = command.split(">>>")
+    if instructions[0] == "Contains":
+        substring = instructions[1]
+        if substring in activation_key:
+            print(f"{activation_key} contains {substring}")
+        else:
+            print("Substring not found!")
+    elif instructions[0] == "Flip":
+        case, start_index, end_index = instructions[1], int(instructions[2]), int(instructions[3])
+        substring = activation_key[start_index:end_index:]
+        if case == "Lower":
+            changed_substring = substring.lower()
+            activation_key = activation_key.replace(substring, changed_substring)
+            print(activation_key)
+
+        elif case == "Upper":
+            changed_substring = substring.upper()
+            activation_key = activation_key.replace(substring, changed_substring)
+            print(activation_key)
+
+    elif instructions[0] == "Slice":
+        start_index, end_index = int(instructions[1]), int(instructions[2])
+        activation_key = activation_key[0:start_index:] + activation_key[end_index::]
+        print(activation_key)
+
+    command = input()
+print(f"Your activation key is: {activation_key}")
