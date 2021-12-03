@@ -1,0 +1,41 @@
+import re
+mirror_words = []
+list_pairs = []
+text = input()
+pattern = r'#([A-Za-z]{3,}##[A-Za-z]{3,})#|@([A-Za-z]{3,}@@[A-Za-z]{3,})@'
+match = re.findall(pattern, text)
+if len(match) < 1:
+    print("No word pairs found!")
+else:
+    print(f"{len(match)} word pairs found!")
+for tuple in match:
+    if tuple[0] == '':
+        middle = int(len(tuple[1])/2)
+        word = str(tuple[1])
+        word_1 = word[:middle-1:]
+        word_2 = word[middle+1::]
+        if word_1== word_2[::-1]:
+            mirror_words.append(tuple[1])
+    elif tuple[1] == '':
+        middle = int(len(tuple[0]) / 2)
+        word = str(tuple[0])
+        word_1 = word[:middle - 1:]
+        word_2 = word[middle + 1::]
+        if word_1 == word_2[::-1]:
+            mirror_words.append(tuple[0])
+if len(mirror_words) < 1:
+    print("No mirror words!")
+else:
+    print("The mirror words are:")
+    for item in mirror_words:
+        middle = int((len(item))/2)
+        pairs = f"{item[:middle-1:]} <=> {item[middle+1::]}"
+
+        list_pairs.append(pairs)
+
+    print(f"{', '.join(list_pairs)}")
+
+
+#for words in match:
+    #print(words)
+
